@@ -9,12 +9,12 @@ export const getType = (type: string) => {
     case 'url':
     case 'number':
     case 'search':
-      return 'input'
+      return 'input';
     case 'select':
-      return 'select'
+      return 'select';
     case 'textarea':
-      return 'textarea'
+      return 'textarea';
     default:
-      return 'input'
+      return 'input';
   }
-}
+};

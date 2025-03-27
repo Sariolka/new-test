@@ -1,6 +1,6 @@
-import type { IForm, IFormValues } from '@/types/types.ts'
-import { ref } from 'vue'
-import { isOld, minLength, mustCheck, required, validEmail } from '@/data/rulesdata.ts'
+import type { IForm, IFormValues } from '@/types/types.ts';
+import { ref } from 'vue';
+import { isOld, minLength, mustCheck, required, validEmail } from '@/data/rulesdata.ts';
 
 export const form: IForm = {
   name: {
@@ -66,7 +66,8 @@ export const form: IForm = {
     ],
     rules: [required],
     errorMessages: ['Поле  обязательно для заполнения.'],
-  }, date: {
+  },
+  date: {
     type: 'date',
     required: true,
     attributes: {
@@ -74,7 +75,7 @@ export const form: IForm = {
     },
     label: 'Укажите дату рождения:',
     rules: [required, isOld],
-    errorMessages: ['Поле  обязательно для заполнения.','Вам должно быть не менее 18 лет.'],
+    errorMessages: ['Поле  обязательно для заполнения.', 'Вам должно быть не менее 18 лет.'],
   },
   gender: {
     type: 'radio',
@@ -109,5 +110,5 @@ export const inputValuesRef: IFormValues = ref({
   country: '',
   terms: false,
   gender: '',
-  date: ''
-})
+  date: '',
+});
