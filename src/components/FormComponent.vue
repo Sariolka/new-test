@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { useFormValidation } from '@/helpers/useValidation.ts'
-import { useBaseRequest } from '@/api/api.ts'
-import { ref } from 'vue'
-import { form, inputValuesRef } from '@/data/data.ts'
+import { useFormValidation } from '@/composables/useValidation.ts';
+import { useBaseRequest } from '@/composables/api.ts';
+import { ref } from 'vue';
+import { form, inputValuesRef } from '@/data/data.ts';
 
-
-const initialValues = ref({ ...inputValuesRef.value })
+const initialValues = ref({ ...inputValuesRef.value });
 const { errorMessages, isValid, handleChange, validateForm } = useFormValidation(
   form,
   inputValuesRef,
-)
-const { baseRequest, loading, success, error, data, resetState } = useBaseRequest()
+);
+const { baseRequest, loading, success, error, data, resetState } = useBaseRequest();
 
 const handleSubmitForm = async () => {
-  validateForm()
+  validateForm();
   if (isValid.value) {
     try {
       const sendingData = {
@@ -24,20 +23,20 @@ const handleSubmitForm = async () => {
         country: inputValuesRef.value.country,
         terms: inputValuesRef.value.terms,
         gender: inputValuesRef.value.gender,
-      }
-      const response = await baseRequest<any>('https://reqres.in/api/users', 'POST', sendingData)
-      console.log('Успешный ответ:', data.value, response)
-      Object.assign(inputValuesRef.value, initialValues.value)
+      };
+      const response = await baseRequest<any>('https://reqres.in/api/users', 'POST', sendingData);
+      console.log('Успешный ответ:', data.value, response);
+      Object.assign(inputValuesRef.value, initialValues.value);
       setTimeout(() => {
-        resetState()
-      }, 2000)
+        resetState();
+      }, 2000);
     } catch (error) {
-      console.error('Ошибка при отправке формы:', error)
+      console.error('Ошибка при отправке формы:', error);
     }
   } else {
-    console.log('Ошибки валидации:', errorMessages.value)
+    console.log('Ошибки валидации:', errorMessages.value);
   }
-}
+};
 //можно сделать через component, меньше кода, но у меня была проблема со сбросом значений после отправки формы
 </script>
 
@@ -85,7 +84,7 @@ const handleSubmitForm = async () => {
           <input
             class="container__input"
             :class="{
-              'container__input_type-checkbox': field.type === 'checkbox'
+              'container__input_type-checkbox': field.type === 'checkbox',
             }"
             v-model="inputValuesRef[field.attributes.name]"
             @change="handleChange"
