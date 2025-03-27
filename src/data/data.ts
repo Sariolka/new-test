@@ -1,5 +1,6 @@
 import type { IForm, IFormValues } from '@/types/types.ts'
 import { ref } from 'vue'
+import { isOld, minLength, mustCheck, required, validEmail } from '@/data/rulesdata.ts'
 
 export const form: IForm = {
   name: {
@@ -9,7 +10,7 @@ export const form: IForm = {
     attributes: {
       name: 'name',
     },
-    rules: [(value: string) => !!value, (value: string) => value.length >= 2],
+    rules: [required, minLength(2)],
     errorMessages: ['Имя обязательно.', 'Имя должно содержать как минимум 2 символа.'],
   },
   email: {
@@ -21,10 +22,7 @@ export const form: IForm = {
       placeholder: 'email@example.com',
       name: 'email',
     },
-    rules: [
-      (value: string) => !!value,
-      (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
-    ],
+    rules: [required, validEmail],
     errorMessages: ['Email обязателен.', 'Введите корректный email.'],
   },
   password: {
@@ -34,7 +32,7 @@ export const form: IForm = {
       name: 'password',
     },
     label: 'Введите пароль:',
-    rules: [(value: string) => !!value, (value: string) => value.length >= 6],
+    rules: [required, minLength(6)],
     errorMessages: ['Пароль обязателен.', 'Пароль должен содержать как минимум 6 символов.'],
   },
   textarea: {
@@ -42,11 +40,11 @@ export const form: IForm = {
     required: true,
     label: 'Пожелания:',
     attributes: {
-      maxlength: 400,
-      row: 8,
+      maxlength: 200,
+      rows: 7,
       name: 'textarea',
     },
-    rules: [(value: string) => !!value, (value: string) => value.length >= 10],
+    rules: [required, minLength(10)],
     errorMessages: ['Обязательное поле.', 'Не менее 10 символов.'],
   },
   country: {
@@ -66,7 +64,17 @@ export const form: IForm = {
       { value: 'fr', label: 'Франция' },
       { value: 'cn', label: 'Китай' },
     ],
-    rules: [(value: string) => !!value],
+    rules: [required],
+    errorMessages: ['Поле  обязательно для заполнения.'],
+  }, date: {
+    type: 'date',
+    required: true,
+    attributes: {
+      name: 'date',
+    },
+    label: 'Укажите дату рождения:',
+    rules: [required, isOld],
+    errorMessages: ['Поле  обязательно для заполнения.','Вам должно быть не менее 18 лет.'],
   },
   gender: {
     type: 'radio',
@@ -79,8 +87,9 @@ export const form: IForm = {
       { value: 'f', label: 'Женский' },
       { value: 'm', label: 'Мужской' },
     ],
-    rules: [(value: string) => !!value],
+    rules: [required],
   },
+
   terms: {
     type: 'checkbox',
     required: true,
@@ -88,9 +97,9 @@ export const form: IForm = {
       name: 'terms',
     },
     label: 'Согласие на обработку данных',
-    rules: [(value: boolean) => value === true],
+    rules: [mustCheck],
   },
-}
+};
 
 export const inputValuesRef: IFormValues = ref({
   name: '',
@@ -100,4 +109,5 @@ export const inputValuesRef: IFormValues = ref({
   country: '',
   terms: false,
   gender: '',
+  date: ''
 })

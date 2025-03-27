@@ -14,7 +14,6 @@ const { baseRequest, loading, success, error, data, resetState } = useBaseReques
 
 const handleSubmitForm = async () => {
   validateForm()
-
   if (isValid.value) {
     try {
       const sendingData = {
@@ -86,8 +85,7 @@ const handleSubmitForm = async () => {
           <input
             class="container__input"
             :class="{
-              'container__input_type-checkbox': field.type === 'checkbox',
-              container__input_invalid: errorMessages[field.attributes.name]?.length,
+              'container__input_type-checkbox': field.type === 'checkbox'
             }"
             v-model="inputValuesRef[field.attributes.name]"
             @change="handleChange"
@@ -126,7 +124,6 @@ const handleSubmitForm = async () => {
             v-bind="field.attributes"
           />
         </template>
-
         <span
           class="container__error-message"
           v-if="errorMessages[field.attributes.name]?.length"
@@ -154,7 +151,7 @@ const handleSubmitForm = async () => {
   flex-direction: column;
   align-items: center;
   background-color: #fff;
-  padding: 40px;
+  padding: 20px 40px;
   width: 470px;
   border-radius: 10px;
   border: 1px solid #292929;
