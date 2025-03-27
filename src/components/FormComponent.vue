@@ -23,6 +23,7 @@ const handleSubmitForm = async () => {
         country: inputValuesRef.value.country,
         terms: inputValuesRef.value.terms,
         gender: inputValuesRef.value.gender,
+        date: inputValuesRef.value.date,
       };
       const response = await baseRequest<any>('https://reqres.in/api/users', 'POST', sendingData);
       console.log('Успешный ответ:', data.value, response);
@@ -137,8 +138,8 @@ const handleSubmitForm = async () => {
           'container__button-submit_error': error,
           'container__button-submit_success': success,
         }"
-      >
-        Отправить данные
+      > {{error ? 'Ошибка' : success ? 'Данные отправлены' : 'Отправить данные'}}
+
       </button>
     </form>
   </div>
