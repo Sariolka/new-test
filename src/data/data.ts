@@ -90,7 +90,6 @@ export const form: IForm = {
     ],
     rules: [required],
   },
-
   terms: {
     type: 'checkbox',
     required: true,
